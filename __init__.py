@@ -1,9 +1,9 @@
-import pathlib
+from pathlib import Path
 import importlib
 import os
 
-root = pathlib.Path(__file__).parent.resolve()
-py_folder = pathlib.Path('%s/py' % root)
+root = Path(__file__).parent.resolve()
+py_folder = Path('%s/py' % root)
 
 py_files = list(py_folder.rglob("*.py"))
 
