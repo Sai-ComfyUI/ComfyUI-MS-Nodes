@@ -1,0 +1,4 @@
+*__pycache__/
+test/
+.vscode/settings.json
+root_test_note.py
