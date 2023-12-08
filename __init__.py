@@ -3,9 +3,9 @@ import importlib
 import os
 
 root = pathlib.Path(__file__).parent.resolve()
-nodes_folder = pathlib.Path('%s/nodes' % root)
+py_folder = pathlib.Path('%s/py' % root)
 
-py_files = list(nodes_folder.rglob("*.py"))
+py_files = list(py_folder.rglob("*.py"))
 
 ui_files = [file for file in py_files if file.name.endswith(('_ui.py'))] 
 ui_list = [file.name.split('.')[0] for file in ui_files]
