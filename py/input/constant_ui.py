@@ -12,6 +12,7 @@ class MS_Boolean:
                     }
                 }
     RETURN_TYPES = ("BOOLEAN", )
+    RETURN_NAMES = ("Boolean",)
     FUNCTION = "run"
     OUTPUT_NODE = True
     CATEGORY = comm_funcs.category_from_file(os.path.abspath(__file__))
@@ -29,6 +30,7 @@ class MS_Float:
                     }
                 }
     RETURN_TYPES = ("FLOAT", )
+    RETURN_NAMES = ("Float",)
     FUNCTION = "run"
     OUTPUT_NODE = True
     CATEGORY = comm_funcs.category_from_file(os.path.abspath(__file__))
@@ -48,6 +50,7 @@ class MS_NP_Vector3:
                     }
                 }
     RETURN_TYPES = ("VECTOR3", "STRING")
+    RETURN_NAMES = ("Vect3","Vect3 as string")
     FUNCTION = "run"
     OUTPUT_NODE = True
     CATEGORY = comm_funcs.category_from_file(os.path.abspath(__file__))
