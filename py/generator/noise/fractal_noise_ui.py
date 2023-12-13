@@ -1,6 +1,6 @@
 import os
 from ... import comm_funcs
-from . import noise_op as OP
+from . import fractal_noise_op as OP
 
 # PERLIN POWER FRACTAL NOISE LATENT
 
