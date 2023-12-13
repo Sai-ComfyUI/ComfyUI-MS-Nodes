@@ -13,17 +13,18 @@ class VectorMath:
                     "X_B": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 9999999999.0, "step": 0.01, "round": 0.001,}),
                     "Y_B": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 9999999999.0, "step": 0.01, "round": 0.001,}),
                     "Z_B": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 9999999999.0, "step": 0.01, "round": 0.001,}),
-                    "Operation": (["A+B", "A-B", "A*B", "A/B"],),
+                    "Operation": (["Add", "Subtract", "Multiply", "Dvivie"],),
                     }
                 }
-    RETURN_TYPES = ("INT", "FLOAT", )
+    RETURN_TYPES = ("VECTOR3", "STRING")
+    RETURN_NAMES = ("Vect3","Vect3 as string")
     FUNCTION = "run"
     OUTPUT_NODE = True
     CATEGORY = comm_funcs.category_from_file(os.path.abspath(__file__))
 
     def run(self, X_A, Y_A, Z_A, X_B, Y_B, Z_B,Operation):
         out = OP.evaluate(X_A, Y_A, Z_A, X_B, Y_B, Z_B,Operation)
-        return (out[0], out[1], out[2])
+        return (out, str(out))
     
 
 NODE_CLASS_MAPPINGS = {

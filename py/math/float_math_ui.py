@@ -14,6 +14,7 @@ class FloatMath:
                     }
                 }
     RETURN_TYPES = ("FLOAT", )
+    RETURN_NAMES = ("Float",)
     FUNCTION = "run"
     OUTPUT_NODE = True
     CATEGORY = comm_funcs.category_from_file(os.path.abspath(__file__))
