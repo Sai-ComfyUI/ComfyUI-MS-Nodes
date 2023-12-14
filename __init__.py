@@ -1,6 +1,12 @@
 from pathlib import Path
 import importlib
-import os
+import os, sys
+from .py import comm_funcs
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+WEB_DIRECTORY = "./web"
+MODEL_DIRECTORY = "./models"
 
 root = Path(__file__).parent.resolve()
 py_folder = Path('%s/py' % root)
@@ -16,12 +22,12 @@ NODE_DISPLAY_NAME_MAPPINGS = dict()
 
 for file in ui_files:
     relpath = (os.path.relpath(file, custom_nodes_path))
-    module_path = '.'.join(relpath.split('.')[0].split('\\'))
-    ui_module = importlib.import_module(module_path)
+    ui_module = comm_funcs.import_path_to_module(relpath)
     NODE_CLASS_MAPPINGS.update(ui_module.NODE_CLASS_MAPPINGS)
     NODE_DISPLAY_NAME_MAPPINGS.update(ui_module.NODE_DISPLAY_NAME_MAPPINGS)
 
-WEB_DIRECTORY = "./web"
+
+
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS']
 
 
