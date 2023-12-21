@@ -1,8 +1,8 @@
 import os
-from .. import comm_funcs
+from ...modules import comm_funcs
 from . import float_math_op as OP
 
-    
+
 class FloatMath:
     @classmethod
     def INPUT_TYPES(s):

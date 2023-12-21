@@ -1,6 +1,6 @@
 import os
 import numpy as np
-from .. import comm_funcs
+from ...modules import comm_funcs
 
     
 class MS_Boolean:

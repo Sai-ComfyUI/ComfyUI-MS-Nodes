@@ -1,10 +1,10 @@
-" this file will Move to modules folder, no longer use this after branch merged"
-
 import os
 from pathlib import Path
 import importlib
+from importlib.machinery import SourceFileLoader
 
-def category_from_file(filepath, root_category = 'MS')->str:
+
+def category_from_file(filepath, root_category='MS') -> str:
     """_summary_
 
     Args:
@@ -19,15 +19,14 @@ def category_from_file(filepath, root_category = 'MS')->str:
     relpath = (os.path.relpath(filepath, root))
     module_path = '/'.join(relpath.split('.')[0].split('\\'))
     category = "%s/%s" % (root_category, module_path)
-    
+
     return category
 
 def import_path_to_module(filepath):
     if Path(filepath).name.endswith('.py'):
         module_path = '.'.join(filepath.split('.')[0].split('\\'))
         module = importlib.import_module(module_path)
-        return module
-    
+        return module  
 
 def list_files_with_extensions(path: str, extensions: list, as_str=True, is_sorted=True) -> list:
     paths = list()

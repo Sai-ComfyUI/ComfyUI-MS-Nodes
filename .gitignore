@@ -1,6 +1,7 @@
 *__pycache__/
 test/
-modules/
 .vscode/settings.json
 root_test_note.py
 *test/
+packages/*
+models/

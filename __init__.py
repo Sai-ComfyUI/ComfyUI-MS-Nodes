@@ -1,5 +1,6 @@
 from pathlib import Path
-import importlib
+# import importlib
+# from importlib.machinery import SourceFileLoader
 import os, sys
 from .py import comm_funcs
 
@@ -25,7 +26,6 @@ for file in ui_files:
     ui_module = comm_funcs.import_path_to_module(relpath)
     NODE_CLASS_MAPPINGS.update(ui_module.NODE_CLASS_MAPPINGS)
     NODE_DISPLAY_NAME_MAPPINGS.update(ui_module.NODE_DISPLAY_NAME_MAPPINGS)
-
 
 
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS']

@@ -1,5 +1,5 @@
 import os
-from .. import comm_funcs
+from ...modules import comm_funcs
 from . import vector_math_op as OP
 
 class VectorMath:

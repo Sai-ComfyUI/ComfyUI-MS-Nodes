@@ -9,7 +9,13 @@ Custom nodes dev Document
 
 ## 其他
 
-* py\comm_func.py 這隻用來放通用的處理功能，例如：
-  *  category_from_file 根據檔案所在位置定義節點在選單的位置
+py\comm_func.py 這隻用來放通用的處理功能：
+
+*  category_from_file(filepath, root_category = 'MS')->str 
+根據檔案所在位置定義節點在選單的位置
+*  import_path_to_module(filepath) 
+將 .py 檔載入為 module
+*  list_files_with_extensions(path: str, extensions: list, as_str=True, is_sorted=True) -> list 
+列出目錄下（包括子目錄）指定副檔名的檔案清單，可以用來列出 model 或是其他檔案
 
 
