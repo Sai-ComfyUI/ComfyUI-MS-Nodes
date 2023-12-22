@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 import importlib
 from importlib.machinery import SourceFileLoader
+from . import folder_paths
 
 
 def category_from_file(filepath, root_category='MS') -> str:
@@ -14,7 +15,7 @@ def category_from_file(filepath, root_category='MS') -> str:
     Returns:
         str: menu struct
     """
-    root = '%s/' % Path(__file__).parent.resolve()
+    root = folder_paths.folder_names_and_paths['py']
     filepath = Path(filepath).parent
     relpath = (os.path.relpath(filepath, root))
     module_path = '/'.join(relpath.split('.')[0].split('\\'))

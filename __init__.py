@@ -2,7 +2,7 @@ from pathlib import Path
 # import importlib
 # from importlib.machinery import SourceFileLoader
 import os, sys
-from .py import comm_funcs
+from .modules import comm_funcs
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
