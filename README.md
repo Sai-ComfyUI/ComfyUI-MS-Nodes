@@ -23,7 +23,7 @@ Custom nodes dev Document
 ```
 請注意這隻程式統一規範改放到主目錄下的 modules\comm_funcs.py,
 如果有使用到這隻的請做改動，
-檔案將在下一個 merge 版本正式移除。
+檔案將在下一個 merge 版本正式移除(20231222 已移除)。
 ```
 
 *  category_from_file(filepath, root_category = 'MS')->str 
