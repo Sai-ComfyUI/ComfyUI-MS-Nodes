@@ -1,7 +1,8 @@
 from pathlib import Path
 # import importlib
 # from importlib.machinery import SourceFileLoader
-import os, sys
+import os
+import sys
 from .modules import comm_funcs
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -15,7 +16,7 @@ custom_nodes_path = Path(root).parents[1]
 
 py_files = list(py_folder.rglob("*.py"))
 
-ui_files = [file for file in py_files if file.name.endswith(('_ui.py'))] 
+ui_files = [file for file in py_files if file.name.endswith(('_ui.py'))]
 ui_list = [file.name.split('.')[0] for file in ui_files]
 
 NODE_CLASS_MAPPINGS = dict()
@@ -29,5 +30,3 @@ for file in ui_files:
 
 
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS']
-
-
