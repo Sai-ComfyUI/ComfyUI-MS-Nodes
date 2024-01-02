@@ -1,7 +1,9 @@
 from pathlib import Path
 import os
 import sys
-from .modules import comm_funcs
+from .modules import comm_funcs, setup
+
+setup.run_setup()
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
