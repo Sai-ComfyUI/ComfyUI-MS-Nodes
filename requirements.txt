@@ -4,3 +4,4 @@ diffusers
 matplotlib
 scipy
 transformers
+huggingface-hub
