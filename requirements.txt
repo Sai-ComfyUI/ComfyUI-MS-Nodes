@@ -1,1 +1,6 @@
 torch
+accelerate
+diffusers
+matplotlib
+scipy
+transformers
