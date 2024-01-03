@@ -31,10 +31,10 @@ depth_models['midas_v21'] = None
 
 def image_to_depth_with_model(depth_model, image):
     if depth_model == 'ZoeD_M12_N':
-        colored_depth, colored_depth = resolve_zoe_depth(depth_model, image)
+        colored_depth, grayscale_depth = resolve_zoe_depth(depth_model, image)
     else:
-        colored_depth, colored_depth = resolve_midas_depth(depth_model, image)
-    return (colored_depth, colored_depth)
+        colored_depth, grayscale_depth = resolve_midas_depth(depth_model, image)
+    return (colored_depth, grayscale_depth)
 
 
 def resolve_zoe_depth(depth_model, image):
@@ -76,7 +76,7 @@ def resolve_midas_depth(depth_model, image):
 
 
 def resolve_marigold_depth(image, ensemble_size, denoising_steps, half_precision, processing_res, output_processing_res, seed, batch_size, color_map, apple_silicon):
-    [model.clone_repo() for model in depth_model_list if model.model_name == "Marigold"]
+    [model.download_model() for model in depth_model_list if model.model_name == "Marigold"]
     image = image_funcs.tensor_to_pil(image)
     if apple_silicon:
         if torch.backends.mps.is_available() and torch.backends.mps.is_built():

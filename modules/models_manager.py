@@ -13,16 +13,6 @@ class MS_CKPT:
         self.model_url = model_url
         self.local_path = local_path
 
-    def clone_repo(self):
-        if os.path.exists(self.local_path):
-            print(
-                f"Model '{self.model_name}' already exists at '{self.local_path}'. Skipping download.")
-            return
-        # 使用 git 命令克隆 GitHub 仓库
-        subprocess.run(['git', 'clone', self.model_url, self.local_path])
-
-        print(f"Repository '{self.model_name}' downloaded successfully to '{self.local_path}'")
-
     def download_model(self):
         # 检测本地路径是否已经有模型文件存在
         if os.path.exists(self.local_path):
@@ -31,19 +21,26 @@ class MS_CKPT:
             return
         
         Path(self.local_path).parent.mkdir(parents=True, exist_ok=True)
-        response = requests.get(self.model_url, stream=True)
-        total_size = int(response.headers.get('content-length', 0))
-        block_size = 1024  # 1 Kibibyte
+        
+        if os.path.splitext(self.local_path)[1] == "":
+            # git clone
+            Path(self.local_path).parent.mkdir(parents=True, exist_ok=True)
+            subprocess.run(['git', 'clone', self.model_url, self.local_path])
+            print(f"Repository '{self.model_name}' downloaded successfully to '{self.local_path}'")
+        else:
+            response = requests.get(self.model_url, stream=True)
+            total_size = int(response.headers.get('content-length', 0))
+            block_size = 1024  # 1 Kibibyte
 
-        # 使用 tqdm 创建一个进度条
-        progress_bar = tqdm(total=total_size, unit='iB', unit_scale=True)
+            # 使用 tqdm 创建一个进度条
+            progress_bar = tqdm(total=total_size, unit='iB', unit_scale=True)
 
-        with open(self.local_path, 'wb') as file:
-            for data in response.iter_content(block_size):
-                progress_bar.update(len(data))
-                file.write(data)
+            with open(self.local_path, 'wb') as file:
+                for data in response.iter_content(block_size):
+                    progress_bar.update(len(data))
+                    file.write(data)
 
-        progress_bar.close()
+            progress_bar.close()
 
         print(
             f"Model '{self.model_name}' downloaded successfully to '{self.local_path}'")
