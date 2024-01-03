@@ -3,8 +3,10 @@ test/
 .vscode/settings.json
 root_test_note.py
 *test/
+*test.py
 models/
 assets/input.png
 packages/Marigold
 packages/ms_MiDaS
 packages/ms_ZoeDepth
+

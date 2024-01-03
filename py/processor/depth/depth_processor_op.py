@@ -4,11 +4,13 @@ import numpy as np
 from PIL import Image
 from ....modules import folder_paths
 from ....modules import image_funcs
+from ....modules import models_manager
 from ....packages.ms_ZoeDepth.zoedepth.utils.misc import save_raw_16bit, colorize
 from ....packages.ms_MiDaS.run_ms import midas_color_to_depth
 from ....packages.Marigold.marigold import MarigoldPipeline
 import matplotlib
 from matplotlib.colors import Normalize
+from pathlib import Path
 
 
 depth_models_folder = r"%s\Depth" % folder_paths.folder_names_and_paths['models']
@@ -16,6 +18,7 @@ packages_folder = folder_paths.folder_names_and_paths['packages']
 ms_ZoeDepth_path = r"%s\ms_ZoeDepth" % packages_folder
 ms_MiDaS = r"%s\ms_MiDaS" % packages_folder
 
+depth_model_list = models_manager.depth_model_list
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -26,51 +29,54 @@ depth_models['dpt_large-midas'] = None
 depth_models['midas_v21'] = None
 
 
-def image_to_depth_with_model(depth_model, image, greyscale):
-    out = image
+def image_to_depth_with_model(depth_model, image):
     if depth_model == 'ZoeD_M12_N':
-        out = resolve_zoe_depth(depth_model, image, greyscale)
+        colored_depth, colored_depth = resolve_zoe_depth(depth_model, image)
     else:
-        out = resolve_midas_depth(depth_model, image, greyscale)
-    return out
+        colored_depth, colored_depth = resolve_midas_depth(depth_model, image)
+    return (colored_depth, colored_depth)
 
 
-def resolve_zoe_depth(depth_model, image, greyscale):
+def resolve_zoe_depth(depth_model, image):
     if depth_models['ZoeD_M12_N'] == None:
         model_path = r"%s\%s.pt" % (depth_models_folder, depth_model)
-        depth_models['ZoeD_M12_N'] = torch.hub.load(
-            ms_ZoeDepth_path, "ZoeD_N", source="local", path=model_path, pretrained=True).to(DEVICE)
+        if not os.path.isfile(model_path):
+            Path(depth_models_folder).mkdir(parents=True, exist_ok=True)
+            torch.hub.download_url_to_file("https://github.com/isl-org/ZoeDepth/releases/download/v1.0/ZoeD_M12_N.pt", model_path)
+        depth_models['ZoeD_M12_N'] = torch.hub.load(ms_ZoeDepth_path, "ZoeD_N", source="local", path=model_path, pretrained=True).to(DEVICE)
         # depth_models['ZoeD_M12_N'] = torch.hub.load(ms_ZoeDepth_path, "ZoeD_N", source="local", pretrained=True).to(DEVICE)
     image = image_funcs.tensor_to_pil(image)
     depth_zoe_n = depth_models['ZoeD_M12_N'].infer_pil(image)
     colored = colorize(depth_zoe_n)
-    image = image_funcs.pil_to_tensor(colored)
-    return image
+    colored_depth = image_funcs.pil_to_tensor(colored)
+    return (colored_depth, colored_depth)
 
 
-def resolve_midas_depth(depth_model, image, greyscale):
+def resolve_midas_depth(depth_model, image):
     input_path = (r"%s\input.png" % ms_MiDaS)
+    model_path=(r"%s\%s.pt" % (depth_models_folder, depth_model))
+    [model.download_model() for model in depth_model_list if model.model_name == depth_model]
     image = image_funcs.tensor_to_pil(image)
     w, h = image.size
     image.save(input_path)
     output_path = midas_color_to_depth(input_path=input_path,
-                                       output_path=(
-                                           r"%s\output.png" % ms_MiDaS),
-                                       model_path=(r"%s\%s.pt" % (
-                                           depth_models_folder, depth_model)),
-                                       model_type=os.path.splitext(
-                                           depth_model)[0],
+                                       output_path=(r"%s\output.png" % ms_MiDaS),
+                                       model_path=model_path,
+                                       model_type=os.path.splitext(depth_model)[0],
                                        optimize=False,
                                        side=False,
                                        height=h,
                                        square=False,
                                        grayscale=False)
     image = Image.open(output_path)
-    image = image_funcs.pil_to_tensor(image)
-    return image
+    grayscale_depth = image.convert("L").convert("RGB")
+    grayscale_depth = image_funcs.pil_to_tensor(grayscale_depth)
+    colored_depth = image_funcs.pil_to_tensor(image)
+    return (colored_depth, grayscale_depth)
 
 
 def resolve_marigold_depth(image, ensemble_size, denoising_steps, half_precision, processing_res, output_processing_res, seed, batch_size, color_map, apple_silicon):
+    [model.clone_repo() for model in depth_model_list if model.model_name == "Marigold"]
     image = image_funcs.tensor_to_pil(image)
     if apple_silicon:
         if torch.backends.mps.is_available() and torch.backends.mps.is_built():
