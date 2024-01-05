@@ -152,10 +152,11 @@ class SeedControl {
         this.node.computeSize();
     }
 }
+var nodelist = ["MS_GenerateSeed"];
 app.registerExtension({
     name: "ms.GenerateSeed",
     async beforeRegisterNodeDef(nodeType, nodeData, _app) {
-        if (nodeData.name === "MS_GenerateSeed") {
+        if (nodelist.includes(nodeData.name)) {
             const onNodeCreated = nodeType.prototype.onNodeCreated;
             nodeType.prototype.onNodeCreated = function () {
                 onNodeCreated ? onNodeCreated.apply(this, []) : undefined;

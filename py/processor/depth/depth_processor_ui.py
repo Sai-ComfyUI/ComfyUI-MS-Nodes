@@ -122,10 +122,10 @@ class MarigoldDepthEstimation:
                     "half_precision": ("BOOLEAN", {"default": False}),
                     "processing_res": ("INT", {"default": 768, "min": 0, "max": 4096, "step": 1}),
                     "output_processing_res": ("BOOLEAN", {"default": False}),
-                    "seed": ("INT", {"default": 123, "min": 0, "max": 0xffffffffffffffff, "step": 1}),
                     "batch_size": ("INT", {"default": 0, "min": 0, "max": 4096, "step": 1}),
                     "color_map": (colorize_method_list, {"default": 'Spectral'}),
                     "apple_silicon": ("BOOLEAN", {"default": False}),
+                    "seed": ("INT", {"default": 123, "min": 0, "max": 0xffffffffffffffff, "step": 1}),
                 },
 
                 }
@@ -136,9 +136,9 @@ class MarigoldDepthEstimation:
 
     CATEGORY = comm_funcs.category_from_file(os.path.abspath(__file__))
 
-    def run(self, image, ensemble_size, denoising_steps, half_precision, processing_res, output_processing_res, seed, batch_size, color_map, apple_silicon):
+    def run(self, image, ensemble_size, denoising_steps, half_precision, processing_res, output_processing_res, batch_size, color_map, apple_silicon, seed):
         
-        colored_depth, grayscale_depth = op.resolve_marigold_depth(image, ensemble_size, denoising_steps, half_precision,processing_res, output_processing_res, seed, batch_size, color_map, apple_silicon)
+        colored_depth, grayscale_depth = op.resolve_marigold_depth(image, ensemble_size, denoising_steps, half_precision,processing_res, output_processing_res, batch_size, color_map, apple_silicon, seed)
         
         return (colored_depth, grayscale_depth,)
 

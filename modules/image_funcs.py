@@ -17,14 +17,14 @@ def batch_tensor_to_pil(tensor_image):
     return [tensor_to_pil(tensor_image, i) for i in range(tensor_image.shape[0])]
 
 
-def pil_to_tensor(image):
+def pil_to_tensor(pil_image):
     # Takes a PIL image and returns a tensor of shape [1, height, width, channels]
-    image = np.array(image).astype(np.float32) / 255.0
-    image = torch.from_numpy(image).unsqueeze(0)
-    if len(image.shape) == 3:  # If the image is grayscale, add a channel dimension
-        image = image.unsqueeze(-1)
+    numpy_image = np.array(pil_image).astype(np.float32) / 255.0
+    tensor_image = torch.from_numpy(numpy_image).unsqueeze(0)
+    if len(tensor_image.shape) == 3:  # If the image is grayscale, add a channel dimension
+        tensor_image = tensor_image.unsqueeze(-1)
 
-    return image
+    return tensor_image
 
 
 def batched_pil_to_tensor(images):

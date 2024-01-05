@@ -75,7 +75,7 @@ def resolve_midas_depth(depth_model, image):
     return (colored_depth, grayscale_depth)
 
 
-def resolve_marigold_depth(image, ensemble_size, denoising_steps, half_precision, processing_res, output_processing_res, seed, batch_size, color_map, apple_silicon):
+def resolve_marigold_depth(image, ensemble_size, denoising_steps, half_precision, processing_res, output_processing_res, batch_size, color_map, apple_silicon, seed):
     [model.download_model() for model in depth_model_list if model.model_name == "Marigold"]
     image = image_funcs.tensor_to_pil(image)
     if apple_silicon:
