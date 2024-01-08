@@ -1,6 +1,7 @@
 # ComfyUI-MS-Nodes
 
 Custom nodes dev Document
+===
 
 ## 目錄規範
 * models / pt、onnx 等模型檔，根據用途分子資料夾
@@ -40,5 +41,12 @@ Custom nodes dev Document
 
 * pil_to_tensor pil 轉 tensor
 * tensor_to_pil tensor 轉 pil
+* tensor_to_cv2
+* cv2_to_tensor
+* cv2_to_pil
 
 
+#### modules\folder_paths.py 靜態路徑變數
+用來存放路徑變數，以 folder_paths.py 這個檔為中心點向外搜尋
+folder_names_and_paths 字典用來放資料夾路徑，如果不存在會自動建立
+checkfiles 用來放固定檔案，目前放 requirements.txt 和 .ver 版本檔（初次安裝以及更新會檢查）

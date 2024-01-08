@@ -34,3 +34,4 @@ model_dict = {}
 model_dict["Marigold"] = "https://huggingface.co/Bingxin/Marigold"
 model_dict["ZoeD_M12_N"] = "https://github.com/isl-org/ZoeDepth/releases/download/v1.0/ZoeD_M12_N.pt"
 
+
