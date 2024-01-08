@@ -43,8 +43,8 @@ def install_requirement():
                 file_path.unlink()
                 print("Old version detected")
                 
-        subprocess.check_call(["pip", "install", "-r", requirement_file,])
-        with version_file.open(mode='w') as file:
+        subprocess.check_call(["python", "-m", "pip", "install", "-r", requirement_file])
+        with Path(version_file).open(mode='w') as file:
             file.write("This is a sample file.")
 
     print("Successfully update requirement")
