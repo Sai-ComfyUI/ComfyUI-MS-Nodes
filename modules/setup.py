@@ -2,7 +2,7 @@ import subprocess
 import sys
 import os
 from pathlib import Path
-from .folder_paths import folder_names_and_paths, package_git_dict
+from .folder_paths import folder_names_and_paths, package_git_dict, checkfiles
 
 
 def init_folders():
@@ -35,8 +35,8 @@ def install_packages_by_dict():
             print(f"Unexpected error: {e}")
 
 def install_requirement():
-    requirement_file = folder_names_and_paths['requirement']
-    version_file = folder_names_and_paths["version"]
+    requirement_file = checkfiles['requirement']
+    version_file = checkfiles["version"]
     if not os.path.isfile(version_file):
         for file_path in Path(version_file).parent.iterdir():
             if file_path == ".ver":
