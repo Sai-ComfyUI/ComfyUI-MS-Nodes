@@ -34,7 +34,22 @@ def install_packages_by_dict():
         except Exception as e:
             print(f"Unexpected error: {e}")
 
+def install_requirement():
+    requirement_file = folder_names_and_paths['requirement']
+    version_file = folder_names_and_paths["version"]
+    if not os.path.isfile(version_file):
+        for file_path in Path(version_file).parent.iterdir():
+            if file_path == ".ver":
+                file_path.unlink()
+                print("Old version detected")
+                
+        subprocess.check_call(["pip", "install", "-r", requirement_file,])
+        with version_file.open(mode='w') as file:
+            file.write("This is a sample file.")
+
+    print("Successfully update requirement")
 
 def run_setup():
     init_folders()
     install_packages_by_dict()
+    install_requirement()

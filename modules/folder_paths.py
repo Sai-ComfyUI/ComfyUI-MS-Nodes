@@ -5,8 +5,14 @@ supported_pt_extensions = set(['.ckpt', '.pt', '.bin', '.pth', '.safetensors', '
 
 root = Path(os.path.abspath(__file__))
 
-# folders level 1
+
 folder_names_and_paths = {}
+
+# install_check_file
+folder_names_and_paths['version'] = r"%s\ms_1_0_0.ver" % root.parents[1]
+folder_names_and_paths['requirement'] = r"%s\requirement.txt" % root.parents[1]
+
+# folders level 1
 folder_names_and_paths['assets'] = r"%s\assets" % root.parents[1]
 folder_names_and_paths['py'] = r"%s\py" % root.parents[1]
 folder_names_and_paths['models'] = r"%s\models" % root.parents[1]
