@@ -47,6 +47,6 @@ Custom nodes dev Document
 
 
 #### modules\folder_paths.py 靜態路徑變數
-用來存放路徑變數，以 folder_paths.py 這個檔為中心點向外搜尋
-folder_names_and_paths 字典用來放資料夾路徑，如果不存在會自動建立
-checkfiles 用來放固定檔案，目前放 requirements.txt 和 .ver 版本檔（初次安裝以及更新會檢查）
+用來存放路徑變數，以 folder_paths.py 這個檔為中心點向外搜尋，  
+folder_names_and_paths 字典用來放資料夾路徑，如果不存在會自動建立，  
+checkfiles 固定檔案如 requirements.txt 和 .ver 版本檔（初次安裝以及更新會檢查）  
