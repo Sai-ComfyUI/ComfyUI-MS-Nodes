@@ -11,7 +11,6 @@ depth_model_list = [
     "dpt_levit_224",
     "midas_v21_384",
     "midas_v21_small_256",
-    "ZoeD_M12_N",
 ]
 
 unsupported_depth_model_list = [
@@ -20,6 +19,7 @@ unsupported_depth_model_list = [
     "dpt_swin2_base_384", # force 384*384 only
     "dpt_swin2_large_384", # force 384*384 only
     "dpt_swin2_tiny_256", # force 256*256 only
+    "ZoeD_M12_N",
 ]
 
 colorize_method_list = ['Spectral',
@@ -52,7 +52,7 @@ class DepthModelLoader:
 
         return {"required": 
                     { 
-                    "depth_model": (depth_model_list, {"default": "ZoeD_M12_N"}),
+                    "depth_model": (depth_model_list, {"default": "dpt_beit_large_512"}),
                     }
                 }
     RETURN_TYPES = ("Model_Depth", )

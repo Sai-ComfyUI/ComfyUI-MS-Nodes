@@ -34,7 +34,7 @@ def install_packages_by_dict():
         except Exception as e:
             print(f"Unexpected error: {e}")
 
-def install_requirement():
+def install_requirement_for_portable():
     requirement_file = checkfiles['requirement']
     version_file = checkfiles["version"]
     if not os.path.isfile(version_file):
@@ -49,7 +49,18 @@ def install_requirement():
 
     print("Successfully update requirement")
 
+
+def install_controlnet_aux():
+    print ("installing controlnet_aux requirement")
+    subprocess.check_call(["pip", "install", "controlnet-aux",])
+    subprocess.check_call(["pip", "install", "-U", "openmim",])
+    subprocess.check_call(["mim", "install","mmengine",])
+    subprocess.check_call(["mim", "install","mmcv>=2.0.1",])
+    subprocess.check_call(["mim", "install","mmdet>=3.1.0",])
+    subprocess.check_call(["mim", "install","mmpose>=1.1.0",])
+
 def run_setup():
     init_folders()
     install_packages_by_dict()
-    install_requirement()
+    # install_requirement()
+    # install_controlnet_aux()
