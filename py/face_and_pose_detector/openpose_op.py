@@ -1,5 +1,5 @@
-from ....modules import image_funcs
-from ....modules import folder_paths
+from ...modules import image_funcs
+from ...modules import folder_paths
 from controlnet_aux import OpenposeDetector
 
 models_folder = r"%s\ControlNet_Aux" % folder_paths.folder_names_and_paths['models']

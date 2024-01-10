@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from ....modules import image_funcs
+from ...modules import image_funcs
 
 def cv2_hough_circles(tensor_image, method, dp, minDist, param1, param2, minRadius, maxRadius):
     cv2_image = image_funcs.tensor_to_cv2(tensor_image)

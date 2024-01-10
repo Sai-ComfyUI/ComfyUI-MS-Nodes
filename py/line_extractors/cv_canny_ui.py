@@ -1,5 +1,5 @@
 import os
-from ....modules import comm_funcs
+from ...modules import comm_funcs
 from . import cv_canny_op as op
 
 

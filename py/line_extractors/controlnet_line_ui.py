@@ -1,6 +1,6 @@
 import os
-from ....modules import comm_funcs
-from . import controlnet_edge_op as op
+from ...modules import comm_funcs
+from . import controlnet_line_op as op
 
 class ControlNetAux_Hed:
     @classmethod
@@ -94,7 +94,7 @@ class ControlNetAux_Lineart_Anime:
         tensor_image = op.controlnet_aux_lineart_anime(image)
         
         return (tensor_image,)
-
+    
 NODE_CLASS_MAPPINGS = {
     "ControlNetAux_Hed": ControlNetAux_Hed,
     "ControlNetAux_Mlsd": ControlNetAux_Mlsd,

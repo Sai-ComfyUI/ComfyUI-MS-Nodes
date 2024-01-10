@@ -1,5 +1,5 @@
 import cv2
-from ....modules import image_funcs
+from ...modules import image_funcs
 
 def cv2_canny(tensor_image, threshold1, threshold2, apertureSize, L2gradient):
     cv2_image = image_funcs.tensor_to_cv2(tensor_image)

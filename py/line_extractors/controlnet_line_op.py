@@ -1,6 +1,6 @@
-from ....modules import image_funcs
-from ....modules import folder_paths
-from controlnet_aux import HEDdetector, MidasDetector, MLSDdetector, OpenposeDetector, PidiNetDetector, NormalBaeDetector, LineartDetector, LineartAnimeDetector, CannyDetector, ContentShuffleDetector, ZoeDetector, MediapipeFaceDetector, SamDetector, LeresDetector, DWposeDetector
+from ...modules import image_funcs
+from ...modules import folder_paths
+from controlnet_aux import HEDdetector, MLSDdetector, PidiNetDetector, LineartDetector, LineartAnimeDetector
 
 # import torch
 # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -9,16 +9,13 @@ from controlnet_aux import HEDdetector, MidasDetector, MLSDdetector, OpenposeDet
 models_folder = r"%s\ControlNet_Aux" % folder_paths.folder_names_and_paths['models']
 
 hed = HEDdetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
-# midas = MidasDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 mlsd = MLSDdetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 pidi = PidiNetDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 # normal_bae = NormalBaeDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 lineart = LineartDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 lineart_anime = LineartAnimeDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
-# zoe = ZoeDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 # sam = SamDetector.from_pretrained("ybelkada/segment-anything", subfolder="checkpoints", cache_dir=models_folder)
 # mobile_sam = SamDetector.from_pretrained("dhkim2810/MobileSAM", model_type="vit_t", filename="mobile_sam.pt", cache_dir=models_folder)
-# leres = LeresDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 
 def controlnet_aux_hed(tensor_image):
     pil_image = image_funcs.tensor_to_pil(tensor_image)
