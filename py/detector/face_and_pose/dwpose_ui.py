@@ -1,8 +1,8 @@
 import os
-from ...modules import comm_funcs
-from . import mediapipe_op as op
+from ....modules import comm_funcs
+from . import dwpose_op as op
 
-class ControlNetAux_MediapipeFace:
+class ControlNetAux_DWPose:
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -16,14 +16,14 @@ class ControlNetAux_MediapipeFace:
     CATEGORY = comm_funcs.category_from_file(os.path.abspath(__file__))
 
     def run(self, image):
-        tensor_image = op.controlnet_openpose(image)
+        tensor_image = op.controlnet_dwpose(image)
         
         return (tensor_image,)
 
 NODE_CLASS_MAPPINGS = {
-    "ControlNetAux_MediapipeFace": ControlNetAux_MediapipeFace,
+    "ControlNetAux_DWPose": ControlNetAux_DWPose,
     }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "ControlNetAux_MediapipeFace": "ControlNet Mediapipe Face (MS)",
+    "ControlNetAux_DWPose": "ControlNet DWPose (MS)",
     }

@@ -19,7 +19,7 @@ unsupported_depth_model_list = [
     "dpt_swin2_base_384", # force 384*384 only
     "dpt_swin2_large_384", # force 384*384 only
     "dpt_swin2_tiny_256", # force 256*256 only
-    "ZoeD_M12_N",
+    "ZoeD_M12_N", # replace by controlnet aux 
 ]
 
 colorize_method_list = ['Spectral',
@@ -81,7 +81,7 @@ class ImageToDepthWithModel:
 
     def run(self, depth_model, image):
         
-        colored_depth, grayscale_depth = op.image_to_depth_with_model(depth_model, image)
+        colored_depth, grayscale_depth = op.resolve_midas_depth(depth_model, image)
         return (colored_depth, grayscale_depth,)
 
 

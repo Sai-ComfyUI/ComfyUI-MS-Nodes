@@ -1,6 +1,6 @@
 from ....modules import image_funcs
 from ....modules import folder_paths
-from controlnet_aux import MidasDetector, ZoeDetector, LeresDetector
+from ms_ai_pack import MidasDetector, ZoeDetector, LeresDetector
 
 # import torch
 # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

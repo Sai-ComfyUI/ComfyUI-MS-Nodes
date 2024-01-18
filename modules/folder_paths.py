@@ -27,7 +27,7 @@ folder_names_and_paths['output'] = r"%s\output" % root.parents[3]
 package_git_dict = {}
 package_git_dict["Marigold"] = "https://github.com/prs-eth/Marigold"
 package_git_dict["ms_MiDaS"] = "http://gitlab.moonshine.tw/ai/custom_packages/ms_MiDaS.git"
-package_git_dict["ms_ZoeDepth"] = "http://gitlab.moonshine.tw/ai/custom_packages/ms_ZoeDepth.git"
+# package_git_dict["ms_ZoeDepth"] = "http://gitlab.moonshine.tw/ai/custom_packages/ms_ZoeDepth.git"
 
 # models
 model_dict = {}

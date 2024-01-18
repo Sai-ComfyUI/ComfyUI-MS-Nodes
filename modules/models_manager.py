@@ -4,7 +4,10 @@ from tqdm import tqdm
 from pathlib import Path
 import subprocess
 from .folder_paths import folder_names_and_paths
+from huggingface_hub import hf_hub_download
 
+def huggingface_download(pretrained_model_or_path, filename, cache_dir, subfolder="", ):
+    pass
 
 class MS_CKPT:
     def __init__(self, model_name, model_type, model_url, local_path):

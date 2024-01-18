@@ -2,6 +2,7 @@ import torch
 import numpy as np
 from PIL import Image
 import cv2
+import torchvision.transforms as transforms
 
 
 def tensor_to_pil(tensor_image, batch_index=0):
@@ -61,3 +62,42 @@ def cv2_to_tensor(cv2_image, batch_index=0):
 def cv2_to_pil(cv2_image):
     pil_image = Image.fromarray(cv2.cvtColor(cv2_image, cv2.COLOR_BGR2RGB))
     return pil_image
+
+
+def image_type_transform(input_image, output_type="tensor"):
+    # cv2         
+    input_type = "None"
+    to_tensor = transforms.ToTensor()
+    to_pil = transforms.ToPILImage()
+    
+    if isinstance(input_image, np.ndarray):
+        input_type = "cv2 image"
+        if output_type == "tensor":
+            output_image = to_tensor(cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB))
+        elif output_type == "pil":
+            output_image = Image.fromarray(cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB))
+        elif output_type == "cv2":
+            output_image = input_image
+    # pil 
+    elif isinstance(input_image, Image.Image):
+        input_type = "pil image"
+        if output_type == "tensor":
+            output_image = to_tensor(input_image)
+        elif output_type == "pil":
+            output_image = input_image
+        elif output_type == "cv2":
+            output_image = cv2.cvtColor(np.array(input_image), cv2.COLOR_RGB2BGR)
+    # tensor 
+    elif isinstance(input_image, torch.Tensor):
+        input_type = "tensor image"
+        if output_type == "tensor":
+            output_image = input_image
+        elif output_type == "pil":
+            output_image = to_pil(input_image)
+        elif output_type == "cv2":
+            numpy_image = input_image.permute(1, 2, 0).numpy()
+            output_image = (numpy_image * 255).astype(np.uint8)
+    
+    print ("input image is %s" % input_type)
+    
+    return output_image

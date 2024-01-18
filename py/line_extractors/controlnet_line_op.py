@@ -1,6 +1,6 @@
 from ...modules import image_funcs
 from ...modules import folder_paths
-from controlnet_aux import HEDdetector, MLSDdetector, PidiNetDetector, LineartDetector, LineartAnimeDetector
+from ms_ai_pack import HEDdetector, MLSDdetector, PidiNetDetector, LineartDetector, LineartAnimeDetector, MangaLineDetector
 
 # import torch
 # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -11,9 +11,10 @@ models_folder = r"%s\ControlNet_Aux" % folder_paths.folder_names_and_paths['mode
 hed = HEDdetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 mlsd = MLSDdetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 pidi = PidiNetDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
-# normal_bae = NormalBaeDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 lineart = LineartDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
 lineart_anime = LineartAnimeDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
+manga_line = MangaLineDetector.from_pretrained(pretrained_model_or_path="lllyasviel/Annotators", cache_dir=models_folder)
+
 # sam = SamDetector.from_pretrained("ybelkada/segment-anything", subfolder="checkpoints", cache_dir=models_folder)
 # mobile_sam = SamDetector.from_pretrained("dhkim2810/MobileSAM", model_type="vit_t", filename="mobile_sam.pt", cache_dir=models_folder)
 
@@ -45,4 +46,11 @@ def controlnet_aux_lineart_anime(tensor_image):
     pil_image = image_funcs.tensor_to_pil(tensor_image)
     processed_image = lineart(pil_image)
     tensor_image = image_funcs.pil_to_tensor(processed_image)
+    return tensor_image
+
+
+def controlnet_aux_manga_line(tensor_image):
+    cv2_image = image_funcs.tensor_to_cv2(tensor_image)
+    processed_image = manga_line(cv2_image)
+    tensor_image = image_funcs.cv2_to_tensor(processed_image)
     return tensor_image

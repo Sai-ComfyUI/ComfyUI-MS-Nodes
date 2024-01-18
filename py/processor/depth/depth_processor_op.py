@@ -5,7 +5,6 @@ from PIL import Image
 from ....modules import folder_paths
 from ....modules import image_funcs
 from ....modules import models_manager
-from ....packages.ms_ZoeDepth.zoedepth.utils.misc import save_raw_16bit, colorize
 from ....packages.ms_MiDaS.run_ms import midas_color_to_depth
 from ....packages.Marigold.marigold import MarigoldPipeline
 import matplotlib
@@ -27,29 +26,6 @@ depth_models['ZoeD_M12_N'] = None
 depth_models['dpt_hybrid-midas'] = None
 depth_models['dpt_large-midas'] = None
 depth_models['midas_v21'] = None
-
-
-def image_to_depth_with_model(depth_model, image):
-    if depth_model == 'ZoeD_M12_N':
-        colored_depth, grayscale_depth = resolve_zoe_depth(depth_model, image)
-    else:
-        colored_depth, grayscale_depth = resolve_midas_depth(depth_model, image)
-    return (colored_depth, grayscale_depth)
-
-
-def resolve_zoe_depth(depth_model, image):
-    if depth_models['ZoeD_M12_N'] == None:
-        model_path = r"%s\%s.pt" % (depth_models_folder, depth_model)
-        if not os.path.isfile(model_path):
-            Path(depth_models_folder).mkdir(parents=True, exist_ok=True)
-            torch.hub.download_url_to_file("https://github.com/isl-org/ZoeDepth/releases/download/v1.0/ZoeD_M12_N.pt", model_path)
-        depth_models['ZoeD_M12_N'] = torch.hub.load(ms_ZoeDepth_path, "ZoeD_N", source="local", path=model_path, pretrained=True).to(DEVICE)
-        # depth_models['ZoeD_M12_N'] = torch.hub.load(ms_ZoeDepth_path, "ZoeD_N", source="local", pretrained=True).to(DEVICE)
-    image = image_funcs.tensor_to_pil(image)
-    depth_zoe_n = depth_models['ZoeD_M12_N'].infer_pil(image)
-    colored = colorize(depth_zoe_n)
-    colored_depth = image_funcs.pil_to_tensor(colored)
-    return (colored_depth, colored_depth)
 
 
 def resolve_midas_depth(depth_model, image):

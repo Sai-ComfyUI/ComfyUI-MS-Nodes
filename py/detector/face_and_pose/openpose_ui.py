@@ -1,5 +1,5 @@
 import os
-from ...modules import comm_funcs
+from ....modules import comm_funcs
 from . import openpose_op as op
 
 class ControlNetAux_Openpose:
