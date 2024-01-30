@@ -32,7 +32,7 @@ def import_path_to_module(filepath):
         module = importlib.import_module(module_path)
         return module  
 
-def list_files_with_extensions(path: str, extensions: list, as_str=True, is_sorted=True) -> list:
+def list_files_with_extensions(path: str, extensions: list, as_str=True, is_sorted=True, rel_path=True) -> list:
     paths = list()
     
     if isinstance(extensions, str):
@@ -44,7 +44,7 @@ def list_files_with_extensions(path: str, extensions: list, as_str=True, is_sort
         paths = sorted(files)
         
     if as_str:
-        paths = [str(file) for file in files]
+        paths = [str(file) for file in files]        
     
     return paths
 
