@@ -9,3 +9,5 @@ imutils
 tqdm
 kornia
 pillow-lut
+scikit
+colortrans
