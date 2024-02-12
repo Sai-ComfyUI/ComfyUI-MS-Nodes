@@ -1,6 +1,7 @@
 import colortrans
 import numpy as np
 from PIL import Image
+from color_matcher import ColorMatcher
 from ....modules import image_funcs
 
 def color_trans(image, ref, method):    
@@ -20,4 +21,15 @@ def color_trans(image, ref, method):
     tensor_image = image_funcs.pil_to_tensor(pil_output)
     
     return tensor_image
+
+def color_matcher(image, ref, method):
+    pil_image = image_funcs.tensor_to_pil(image)
+    pil_image = np.array(pil_image.convert('RGB'))
+    pil_ref = image_funcs.tensor_to_pil(ref)
+    pil_ref = np.array(pil_ref.convert('RGB'))
     
+    colormatcher = ColorMatcher()
+    image_result = colormatcher.transfer(src=pil_image, ref=pil_ref, method=method)
+    tensor_image = image_funcs.pil_to_tensor(image_result)
+    
+    return tensor_image
