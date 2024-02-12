@@ -42,13 +42,34 @@ class ColorMatcher:
         
         return (tensor_image,)
 
+class ColorTransferBetweenImages:
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "image": ("IMAGE",),
+                "ref": ("IMAGE",),
+            },
+        }
+
+    RETURN_TYPES = ("IMAGE",)
+    FUNCTION = "run"
+    CATEGORY = comm_funcs.category_from_file(os.path.abspath(__file__))
+
+    def run(self, image, ref):
+        tensor_image = op.color_transfer_between_images(image, ref)
+        
+        return (tensor_image,)
+    
 
 NODE_CLASS_MAPPINGS = {
     "ColorTrans": ColorTrans,
     "ColorMatcher": ColorMatcher,
+    "ColorTransferBetweenImages": ColorTransferBetweenImages,
     }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "ColorTrans": "Color Trans (MS)",
     "ColorMatcher": "Color Matcher (MS)",
+    "ColorTransferBetweenImages": "ColorTransferBetweenImages (MS)",
     }
