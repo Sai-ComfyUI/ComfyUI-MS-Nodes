@@ -11,3 +11,4 @@ kornia
 pillow-lut
 scikit
 colortrans
+color-matcher
