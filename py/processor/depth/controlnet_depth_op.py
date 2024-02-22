@@ -8,22 +8,24 @@ from ms_ai_pack import MidasDetector, ZoeDetector, LeresDetector
 
 models_folder = r"%s\ControlNet_Aux" % folder_paths.folder_names_and_paths['models']
 
-midas = MidasDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
-zoe = ZoeDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
-leres = LeresDetector.from_pretrained("lllyasviel/Annotators", cache_dir=models_folder)
-
 
 def controlnet_aux_midas(tensor_image):
+    midas = MidasDetector.from_pretrained(
+        "lllyasviel/Annotators", cache_dir=models_folder)
     pil_image = image_funcs.tensor_to_pil(tensor_image)
     processed_image = midas(pil_image)
     tensor_image = image_funcs.pil_to_tensor(processed_image)
     return tensor_image
 
+
 def controlnet_aux_zoe(tensor_image):
+    zoe = ZoeDetector.from_pretrained(
+        "lllyasviel/Annotators", cache_dir=models_folder)
     pil_image = image_funcs.tensor_to_pil(tensor_image)
     processed_image = zoe(pil_image)
     tensor_image = image_funcs.pil_to_tensor(processed_image)
     return tensor_image
+
 
 def controlnet_aux_zoe_depth_anything(tensor_image, environment):
     pil_image = image_funcs.tensor_to_pil(tensor_image)
@@ -32,11 +34,14 @@ def controlnet_aux_zoe_depth_anything(tensor_image, environment):
     #     processed_image = zoe_depth_anything_indoor(pil_image)
     # else:
     #     processed_image = zoe_depth_anything_outdoor(pil_image)
-        
+
     tensor_image = image_funcs.pil_to_tensor(processed_image)
     return tensor_image
 
+
 def controlnet_aux_leres(tensor_image):
+    leres = LeresDetector.from_pretrained(
+        "lllyasviel/Annotators", cache_dir=models_folder)
     pil_image = image_funcs.tensor_to_pil(tensor_image)
     processed_image = leres(pil_image)
     tensor_image = image_funcs.pil_to_tensor(processed_image)

@@ -5,7 +5,7 @@ import cv2
 import torchvision.transforms as transforms
 
 
-def tensor_to_pil(tensor_image, batch_index=0):
+def tensor_to_pil(tensor_image, batch_index=0) -> Image.Image:
     # Convert tensor of shape [batch_size, channels, height, width] at the batch_index to PIL Image
     tensor_image = tensor_image[batch_index].unsqueeze(0)
     i = 255. * tensor_image.cpu().numpy()
@@ -33,7 +33,7 @@ def batched_pil_to_tensor(images):
     return torch.cat([pil_to_tensor(image) for image in images], dim=0)
 
 
-def tensor_to_cv2(tensor_image):
+def tensor_to_cv2(tensor_image) -> np.ndarray:
     numpy_image = tensor_image.numpy()
     numpy_image = numpy_image.squeeze()
     numpy_image = (numpy_image * 255).astype(np.uint8)
@@ -59,7 +59,7 @@ def cv2_to_tensor(cv2_image, batch_index=0):
     return tensor_image
 
 
-def cv2_to_pil(cv2_image):
+def cv2_to_pil(cv2_image) -> Image.Image:
     pil_image = Image.fromarray(cv2.cvtColor(cv2_image, cv2.COLOR_BGR2RGB))
     return pil_image
 

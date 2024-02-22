@@ -36,13 +36,6 @@ def color_matcher(image, ref, method):
     return tensor_image
 
 # Color-Transfer-between-Images
-def read_file(sn,tn):
-	s = cv2.imread('source/'+sn+'.bmp')
-	s = cv2.cvtColor(s,cv2.COLOR_BGR2LAB)
-	t = cv2.imread('target/'+tn+'.bmp')
-	t = cv2.cvtColor(t,cv2.COLOR_BGR2LAB)
-	return s, t
-
 def get_mean_and_std(x):
 	x_mean, x_std = cv2.meanStdDev(x)
 	x_mean = np.hstack(np.around(x_mean,2))
